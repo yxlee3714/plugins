@@ -6,6 +6,8 @@ import json
 import time
 import traceback
 
+print("START")
+
 # =========================
 # 全局设备池（线程安全）
 # =========================
@@ -182,6 +184,9 @@ def handle_client(conn, addr):
 
                 elif msg_type == "data":
                     handle_data(msg)
+
+                elif msg_type == "status":
+                    conn.send((json.dumps(devices) + "\n").encode())
 
                 else:
                     print("[!] Unknown message type:", msg_type)
