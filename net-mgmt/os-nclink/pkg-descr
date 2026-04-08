@@ -1,0 +1,2 @@
+NC-Link protocol integration plugin for industrial CNC device communication.
+Provides device monitoring and control via OPNsense.
