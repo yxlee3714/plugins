@@ -13,7 +13,7 @@ async def main():
     server = NCLinkServer(
         host="0.0.0.0",
         port=8080,
-        model_path="/usr/local/etc/nclink/model.json"
+        model_path="/usr/local/etc/nclink/test_model.json"
     )
     await server.start()
 

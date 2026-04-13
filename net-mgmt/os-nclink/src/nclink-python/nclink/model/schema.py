@@ -4,7 +4,11 @@ from pathlib import Path
 from loguru import logger
 
 class ModelValidator:
-    def __init__(self, schema_path: str = "/usr/local/opnsense/src/nclink-python/schema/nclink_schema.json"):
+    def __init__(self, schema_path: str = None):
+        # 如果没有传入路径，则使用相对路径
+        if schema_path is None:
+            schema_path = "schema/nclink_schema.json"
+
         self.schema_path = Path(schema_path)
         self.schema = None
         self.load_schema()

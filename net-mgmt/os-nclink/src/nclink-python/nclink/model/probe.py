@@ -5,7 +5,7 @@ from loguru import logger
 from .types import NCModel
 from .schema import ModelValidator
 
-def load_model(model_path: str = "/usr/local/etc/nclink/model.json") -> NCModel:
+def load_model(model_path: str = "tests/test_model.json") -> NCModel:
     """加载数控机床模型文件"""
     try:
         path = Path(model_path)
