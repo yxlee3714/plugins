@@ -1,0 +1,14 @@
+[nclink]
+command:/usr/local/opnsense/scripts/OPNsense/NCLink/nclink.sh
+parameters: start|stop|restart|status
+type:script_output
+message:Starting NC-Link service
+
+[nclink start]
+command:/usr/local/opnsense/scripts/OPNsense/NCLink/nclink.sh start
+
+[nclink stop]
+command:/usr/local/opnsense/scripts/OPNsense/NCLink/nclink.sh stop
+
+[nclink restart]
+command:/usr/local/opnsense/scripts/OPNsense/NCLink/nclink.sh restart

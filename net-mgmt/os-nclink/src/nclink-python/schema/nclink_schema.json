@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://www.nc-link.org/schema/nclink#",
+  "title": "NC-Link 数控机床模型样式文件",
+  "description": "智能工厂数控机床互联接口规范 - 附录A 数控机床模型样式文件",
+  "type": "object",
+  "required": ["id", "type", "version", "devices"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "根对象的标识号，应用系统内唯一"
+    },
+    "name": {
+      "type": "string",
+      "description": "模型的名称"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["NC_LINK_ROOT"],
+      "description": "根对象类型，必须为 NC_LINK_ROOT"
+    },
+    "description": {
+      "type": "string",
+      "description": "根对象的详细描述"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "NC-Link 协议版本号，例如: 1.1.0"
+    },
+    "configs": {
+      "type": "array",
+      "description": "根对象配置，可包含数据对象或方法对象",
+      "items": {
+        "anyOf": [
+          { "$ref": "#/definitions/DataItem" },
+          { "$ref": "#/definitions/Method" }
+        ]
+      }
+    },
+    "devices": {
+      "type": "array",
+      "description": "设备对象数组",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/Device"
+      }
+    }
+  },
+  "definitions": {
+    "Device": {
+      "type": "object",
+      "required": ["id", "type", "version"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["MACHINE", "ROBOT", "AGV", "CLEAN", "MEASURE", "PRODUCTLINE", "WAREHOUSE"]
+        },
+        "description": { "type": "string" },
+        "number": { "type": "string" },
+        "guid": { "type": "string" },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "configs": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              { "$ref": "#/definitions/DataItem" },
+              { "$ref": "#/definitions/SampleChannel" }
+            ]
+          }
+        },
+        "dataItems": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/DataItem" }
+        },
+        "components": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Component" }
+        }
+      }
+    },
+    "Component": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["AXIS", "SCREW", "TOOL", "MOTOR", "SERVO_DRIVER", "CONTROLLER", "SENSOR", "FIXTURE", "AUXILIARY", "COMPONENT"]
+        },
+        "number": { "type": "string" },
+        "description": { "type": "string" },
+        "configs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/DataItem" }
+        },
+        "dataItems": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/DataItem" }
+        },
+        "components": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/Component" }
+        }
+      }
+    },
+    "DataItem": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string"
+        },
+        "description": { "type": "string" },
+        "datatype": {
+          "type": "string",
+          "enum": ["list", "dict"]
+        },
+        "value": {},
+        "units": { "type": "string" },
+        "setable": { "type": "boolean", "default": false }
+      }
+    },
+    "SampleChannel": {
+      "type": "object",
+      "required": ["id", "type", "sampleInterval", "uploadInterval", "ids"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "const": "SAMPLE_CHANNEL" },
+        "description": { "type": "string" },
+        "sampleInterval": { "type": "integer", "minimum": 1 },
+        "uploadInterval": { "type": "integer", "minimum": 1 },
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id"],
+            "properties": {
+              "id": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "Method": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "const": "METHOD" },
+        "description": { "type": "string" },
+        "args": { "type": "object" }
+      }
+    }
+  }
+}

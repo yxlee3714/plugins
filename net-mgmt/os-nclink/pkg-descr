@@ -1,2 +1,9 @@
-NC-Link protocol integration plugin for industrial CNC device communication.
-Provides device monitoring and control via OPNsense.
+NC-Link (Python) - 智能工厂数控机床互联接口规范实现
+
+本插件实现了国家标准《智能工厂数控机床互联接口规范》（NC-Link），
+提供适配器（Adapter）和代理器（Agent）功能，支持数控机床与上层系统（MES、ERP等）
+的标准化信息交互。
+
+支持模型定义、数据查询、数据采样、状态通知等核心功能。
+
+WWW: https://github.com/yxlee3714/plugins

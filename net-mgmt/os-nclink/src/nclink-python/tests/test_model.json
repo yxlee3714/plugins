@@ -1,0 +1,244 @@
+{
+  "id": "01",
+  "type": "NC_LINK_ROOT",
+  "name": "数控机床模型文件",
+  "version": "1.1.0",
+  "description": "符合NC-Link国家标准的数控机床模型示例",
+  "devices": [
+    {
+      "id": "0103",
+      "type": "MACHINE",
+      "name": "VMC-3Axis 立式加工中心",
+      "description": "三轴数控铣床示例",
+      "number": "0001",
+      "guid": "dev_uuid_0103",
+      "version": "1.1.0",
+      "configs": [
+        {
+          "id": "010301",
+          "type": "TYPE",
+          "name": "机床类型",
+          "value": "milling"
+        },
+        {
+          "id": "sample_channel0",
+          "type": "SAMPLE_CHANNEL",
+          "name": "基础采样通道",
+          "sampleInterval": 2000,
+          "uploadInterval": 2000,
+          "ids": [
+            { "id": "010302" },
+            { "id": "010303" },
+            { "id": "010305" },
+            { "id": "010306" },
+            { "id": "010307" },
+            { "id": "01031220" }
+          ]
+        },
+        {
+          "id": "sample_channel1",
+          "type": "SAMPLE_CHANNEL",
+          "name": "高速轴采样通道",
+          "sampleInterval": 100,
+          "uploadInterval": 300,
+          "ids": [
+            { "id": "0103080402" },
+            { "id": "0103080404" },
+            { "id": "0103090402" },
+            { "id": "0103090404" },
+            { "id": "0103100402" },
+            { "id": "0103100404" },
+            { "id": "01031217" },
+            { "id": "01031218" },
+            { "id": "01031219" }
+          ]
+        }
+      ],
+      "dataItems": [
+        {
+          "id": "010302",
+          "name": "机床状态",
+          "type": "STATUS",
+          "value": "running"
+        },
+        {
+          "id": "010303",
+          "name": "进给速度",
+          "type": "FEED_SPEED",
+          "value": 1500,
+          "units": "mm/min"
+        },
+        {
+          "id": "010305",
+          "name": "进给倍率",
+          "type": "FEED_OVERRIDE",
+          "value": 120
+        },
+        {
+          "id": "010306",
+          "name": "主轴倍率",
+          "type": "SPINDLE_OVERRIDE",
+          "value": 100
+        },
+        {
+          "id": "010307",
+          "name": "加工件数",
+          "type": "PART_COUNT",
+          "value": "42"
+        }
+      ],
+      "components": [
+        {
+          "id": "010308",
+          "type": "AXIS",
+          "number": "X",
+          "name": "X轴",
+          "description": "X线性轴",
+          "configs": [
+            {
+              "id": "01030803",
+              "type": "TYPE",
+              "name": "轴类型",
+              "value": "linear"
+            }
+          ],
+          "components": [
+            {
+              "id": "01030804",
+              "type": "SCREW",
+              "name": "X轴丝杠",
+              "dataItems": [
+                {
+                  "id": "0103080402",
+                  "name": "实际位置",
+                  "type": "POSITION",
+                  "value": 245.67,
+                  "units": "mm"
+                },
+                {
+                  "id": "0103080404",
+                  "name": "实际速度",
+                  "type": "SPEED",
+                  "value": 1200,
+                  "units": "mm/min"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "010309",
+          "type": "AXIS",
+          "number": "Y",
+          "name": "Y轴",
+          "description": "Y线性轴",
+          "configs": [
+            {
+              "id": "01030903",
+              "type": "TYPE",
+              "name": "轴类型",
+              "value": "linear"
+            }
+          ],
+          "components": [
+            {
+              "id": "01030904",
+              "type": "SCREW",
+              "name": "Y轴丝杠",
+              "dataItems": [
+                {
+                  "id": "0103090402",
+                  "name": "实际位置",
+                  "type": "POSITION",
+                  "value": 156.32,
+                  "units": "mm"
+                },
+                {
+                  "id": "0103090404",
+                  "name": "实际速度",
+                  "type": "SPEED",
+                  "value": 800,
+                  "units": "mm/min"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "010310",
+          "type": "AXIS",
+          "number": "Z",
+          "name": "Z轴",
+          "description": "Z线性轴",
+          "configs": [
+            {
+              "id": "01031003",
+              "type": "TYPE",
+              "name": "轴类型",
+              "value": "linear"
+            }
+          ],
+          "components": [
+            {
+              "id": "01031004",
+              "type": "SCREW",
+              "name": "Z轴丝杠",
+              "dataItems": [
+                {
+                  "id": "0103100402",
+                  "name": "实际位置",
+                  "type": "POSITION",
+                  "value": -45.8,
+                  "units": "mm"
+                },
+                {
+                  "id": "0103100404",
+                  "name": "实际速度",
+                  "type": "SPEED",
+                  "value": 0,
+                  "units": "mm/min"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "010312",
+          "type": "CONTROLLER",
+          "name": "数控系统",
+          "description": "华中数控系统示例",
+          "dataItems": [
+            {
+              "id": "01031217",
+              "type": "PROGRAM",
+              "name": "主程序名",
+              "value": "O1234"
+            },
+            {
+              "id": "01031218",
+              "type": "SUBPROGRAM",
+              "name": "子程序名",
+              "value": "O5678"
+            },
+            {
+              "id": "01031219",
+              "type": "LINE_NUMBER",
+              "name": "程序行号",
+              "value": "N120"
+            },
+            {
+              "id": "01031220",
+              "type": "WARNING",
+              "name": "报警信息",
+              "value": {
+                "number": "E123",
+                "text": "主轴过载",
+                "emerge_time": 1744528800000
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

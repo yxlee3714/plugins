@@ -1,0 +1,97 @@
+# =============================================
+# OPNsense Plugin - os-nclink .gitignore
+# =============================================
+
+# Python 相关（开发/测试时产生）
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 日志文件
+*.log
+*.log.*
+
+# 临时文件
+*.tmp
+*.temp
+*~
+
+# 编辑器 / IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OPNsense 插件构建产生的文件
+work/
+pkg/
+*.txz
+*.pkg
+*.tgz
+
+# 测试和临时模型文件（如果不想提交）
+tests/__pycache__/
+*.json.bak
+
+# 配置和敏感信息（生产环境可能生成）
+*.conf
+*.json.bak
+/usr/local/etc/nclink/model.json
+
+# 运行时产生的文件
+/var/run/nclink.pid
+/var/log/nclink.log
+
+# 开发过程中可能产生的备份文件
+*.bak
+*.backup
+
+# Python 打包缓存
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+nox/
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# 不要提交的本地测试文件
+local_test/
+test_output/
