@@ -10,6 +10,17 @@
 - 状态通知（Notify/State）
 
 后续将逐步支持 Method、Event、动态采样等功能。
+## 测试方法
+cd D:\plugins\net-mgmt\os-nclink\src\nclink-python
+
+# 安装依赖（只需执行一次）
+pip install -r ../../requirements.txt
+
+# 使用包模式启动（推荐）
+python -m nclink.server
+
+# 启动测试客户端
+python examples/test_client.py
 
 ## 安装后使用
 1. 在 OPNsense Web 界面安装 os-nclink
