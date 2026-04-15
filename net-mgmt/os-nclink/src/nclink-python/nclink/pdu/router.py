@@ -28,74 +28,71 @@ class Router:
 
     async def route(self, pdu_dict: dict) -> str:
         try:
-            msg_id = pdu_dict.get("@id", "")
+            at_id = str(pdu_dict.get("@id", "")).lower()
             guid = pdu_dict.get("guid") or pdu_dict.get("cli_uuid", "")
-            cmd_lower = json.dumps(pdu_dict).lower()
+            
+            logger.debug(f"路由收到请求 → @id={at_id}, guid={guid}")
 
-            logger.debug(f"收到请求 @id={msg_id}, guid={guid}, keys={list(pdu_dict.keys())}")
+            # ==================== 简单清晰的路由 ====================
 
-            # ==================== 精确路由逻辑 ====================
-            if "cli_uuid" in pdu_dict or msg_id.startswith("reg"):
+            if at_id.startswith("reg") or "cli_uuid" in pdu_dict:
                 resp = handle_register(pdu_dict, self.model)
 
-            # Probe/Version
-            elif msg_id.startswith("probe") and "version" in cmd_lower or "version" in pdu_dict:
-                resp = handle_probe_version(pdu_dict, self.model)
+            # Probe 系列（最常见的问题点）
+            elif at_id.startswith("probe"):
+                if "version" in at_id or "version" in str(pdu_dict).lower():
+                    resp = handle_probe_version(pdu_dict, self.model)
+                elif "query" in at_id or "query" in str(pdu_dict).lower():
+                    resp = handle_probe_query(pdu_dict, self.model)
+                elif "set" in at_id:
+                    resp = handle_probe_set(pdu_dict, self.model)
+                else:
+                    # 默认当作 Probe/Query 处理（最常见情况）
+                    resp = handle_probe_query(pdu_dict, self.model)
 
-            # Probe/Query
-            elif msg_id.startswith("probe") and "query" in cmd_lower or ("probe" in cmd_lower and "query" in cmd_lower):
-                resp = handle_probe_query(pdu_dict, self.model)
-
-            # Probe/Set
-            elif "probe/set" in cmd_lower:
-                resp = handle_probe_set(pdu_dict, self.model)
-
-            # Query/Request
             elif "ids" in pdu_dict and isinstance(pdu_dict.get("ids"), list):
                 resp = handle_query(pdu_dict, self.model)
 
-            # Sample
-            elif "sample" in cmd_lower or (msg_id.startswith("sample") and "id" in pdu_dict):
+            elif at_id.startswith("sample") or "sample" in at_id:
                 resp = handle_sample(pdu_dict, self.model)
 
-            # Notify
-            elif "notify" in cmd_lower or "state" in cmd_lower:
+            elif "notify" in at_id or "state" in at_id:
                 resp = handle_notify(pdu_dict)
 
             # Method
-            elif "method" in cmd_lower:
-                if "call" in cmd_lower:
+            elif at_id.startswith("method") or "method" in at_id:
+                if "call" in at_id:
                     resp = handle_method_call(pdu_dict)
-                elif "status" in cmd_lower:
+                elif "status" in at_id:
                     resp = handle_method_status(pdu_dict)
-                elif "result" in cmd_lower:
+                elif "result" in at_id:
                     resp = handle_method_result(pdu_dict)
-                elif "control" in cmd_lower:
+                elif "control" in at_id:
                     resp = handle_method_control(pdu_dict)
                 else:
                     resp = handle_method_call(pdu_dict)
 
             # Event
-            elif "event" in cmd_lower:
-                if "register" in cmd_lower:
+            elif at_id.startswith("event") or "event" in at_id:
+                if "register" in at_id:
                     resp = handle_event_register(pdu_dict)
-                elif "unregister" in cmd_lower:
+                elif "unregister" in at_id:
                     resp = handle_event_unregister(pdu_dict)
                 else:
                     resp = handle_event_data(pdu_dict)
 
             # Dynamic Sample
-            elif "dynamic" in cmd_lower and "sample" in cmd_lower:
-                if "register" in cmd_lower:
+            elif "dynamic" in at_id or ("dyn" in at_id and "sample" in at_id):
+                if "register" in at_id:
                     resp = handle_dynamic_sample_register(pdu_dict)
-                elif "unregister" in cmd_lower:
+                elif "unregister" in at_id:
                     resp = handle_dynamic_sample_unregister(pdu_dict)
                 else:
                     resp = handle_dynamic_sample_data(pdu_dict)
 
             else:
-                logger.warning(f"无法匹配的请求: {pdu_dict}")
-                raise NCError(401, f"未知指令: {msg_id}")
+                logger.warning(f"无法匹配的请求 → @id={at_id} | 完整内容: {pdu_dict}")
+                raise NCError(401, f"未知指令: {at_id}")
 
             return resp.to_json()
 
