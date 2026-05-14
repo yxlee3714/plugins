@@ -1,0 +1,33 @@
+<form>
+    <field>
+        <id>nclink.general.enabled</id>
+        <label>Enable</label>
+        <type>checkbox</type>
+        <help>Start the NC-Link TCP agent.</help>
+    </field>
+    <field>
+        <id>nclink.general.listen_port</id>
+        <label>Listen port</label>
+        <type>text</type>
+        <help>TCP port for JSON-lines NC-Link PDUs.</help>
+    </field>
+    <field>
+        <id>nclink.general.device_uuid</id>
+        <label>Device UUID</label>
+        <type>text</type>
+        <help>Default dev_uuid used by the bundled CNC model.</help>
+    </field>
+    <field>
+        <id>nclink.general.protocol_version</id>
+        <label>Model version</label>
+        <type>text</type>
+        <help>Version reported by Probe/Version and model probe responses.</help>
+    </field>
+    <field>
+        <id>nclink.general.default_model</id>
+        <label>Model JSON</label>
+        <type>textbox</type>
+        <style>height:240px</style>
+        <help>Optional NC-Link machine model JSON. Leave empty to use the built-in standard-style sample model.</help>
+    </field>
+</form>

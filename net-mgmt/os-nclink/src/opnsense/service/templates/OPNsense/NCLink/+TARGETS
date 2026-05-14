@@ -1,0 +1,2 @@
+nclink.conf:/usr/local/etc/nclink.conf
+rc.conf.d:/etc/rc.conf.d/nclink

@@ -1,0 +1,28 @@
+<model>
+    <mount>//OPNsense/nclink</mount>
+    <description>NC-Link smart factory CNC machine interface</description>
+    <version>1.0.0</version>
+    <items>
+        <general>
+            <enabled type="BooleanField">
+                <default>0</default>
+                <Required>Y</Required>
+            </enabled>
+            <listen_port type="PortField">
+                <default>8088</default>
+                <Required>Y</Required>
+            </listen_port>
+            <device_uuid type="TextField">
+                <default>test-device-001</default>
+                <Required>Y</Required>
+            </device_uuid>
+            <protocol_version type="TextField">
+                <default>1.0</default>
+                <Required>Y</Required>
+            </protocol_version>
+            <default_model type="TextField">
+                <Required>N</Required>
+            </default_model>
+        </general>
+    </items>
+</model>

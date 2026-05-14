@@ -1,0 +1,10 @@
+* text=auto
+
+*.sh text eol=lf
+*.php text eol=lf
+*.conf text eol=lf
+*.volt text eol=lf
+*.xml text eol=lf
+Makefile text eol=lf
+pkg-descr text eol=lf
+src/etc/rc.d/* text eol=lf

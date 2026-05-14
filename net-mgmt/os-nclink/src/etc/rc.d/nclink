@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# PROVIDE: nclink
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="nclink"
+rcvar=nclink_enable
+agent_command="/usr/local/opnsense/scripts/OPNsense/NCLink/agent_daemon.php"
+command="/usr/sbin/daemon"
+pidfile="/var/run/${name}.pid"
+command_args="-f -p ${pidfile} -t /usr/local/bin/php ${agent_command}"
+start_precmd="nclink_precmd"
+
+load_rc_config "${name}"
+: ${nclink_enable:="NO"}
+
+nclink_precmd()
+{
+    if [ ! -x "${agent_command}" ]; then
+        chmod 0755 "${agent_command}"
+    fi
+    install -d -m 0755 /var/run
+}
+
+run_rc_command "$1"

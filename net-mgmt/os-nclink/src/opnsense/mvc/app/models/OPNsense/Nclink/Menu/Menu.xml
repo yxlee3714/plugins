@@ -1,0 +1,5 @@
+<menu>
+    <Services>
+        <NCLink VisibleName="NC-Link" cssClass="fa fa-link fa-fw" url="/ui/nclink" order="80"/>
+    </Services>
+</menu>
